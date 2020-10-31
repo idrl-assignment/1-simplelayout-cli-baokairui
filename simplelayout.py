@@ -16,17 +16,20 @@ def main():
     b_n = (args.board_grid / args.unit_grid)**2
     isExists = os.path.exists(args.outdir)
 
-    if (args.board_grid // args.unit_grid == 0):
-        sys.exit(0)
+    if (args.board_grid % args.unit_grid != 0):
+        sys.exit(1)
 
-    if (args.positions < 1 & args.positions >= b_n):
-        sys.exit(0)
+    if (args.positions < 1 or args.positions > b_n):
+        sys.exit(1)
+
+    if (args.positions != args.unit_n):
+        sys.exit(1)
 
     if not isExists:
         os.makedirs(args.outdir)
         path = args.outdir + '/'
-        file = open(path + 'example' + '.mat', 'w')
-        file = open(path + 'example' + '.jpg', 'w')
+        file = open(path + args.file_name + '.mat', 'w')
+        file = open(path + args.file_name + '.jpg', 'w')
         file.close()
 
 
