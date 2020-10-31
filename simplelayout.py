@@ -14,22 +14,20 @@ def main():
     parser.add_argument('-fn', '--file_name', metavar='', type=str, help='输出文件名')
     args = parser.parse_args()
     b_n = (args.board_grid/args.unit_grid)**2
-    path = args.outdir
-    isExists = os.path.exists(path)
+    isExists = os.path.exists(args.outdir)
 
     if (args.board_grid//args.unit_grid == 0):
-        sys.exit()
+        sys.exit(0)
 
     if (args.positions < 1 & args.positions >= b_n):
-        sys.exit()
+        sys.exit(0)
 
     if not isExists:
-        # 如果不存在则创建目录
-        # 创建目录操作函数
-        os.makedirs(path)
-
-    file = open(args.file_name, 'w')
-    file.close()
+        os.makedirs(args.outdir)
+        path = args.outdir + '/'
+        file = open(path + 'example' + '.mat', 'w')
+        file = open(path + 'example' + '.jpg', 'w')
+        file.close()
 
 
 if __name__ == "__main__":
