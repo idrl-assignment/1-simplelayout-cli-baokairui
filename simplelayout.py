@@ -1,6 +1,6 @@
 import argparse
 import sys
-import os
+from pathlib import Path
 
 
 def main():
@@ -14,7 +14,6 @@ def main():
     parser.add_argument('--file_name', type=str, help='输出文件名')
     args = parser.parse_args()
     b_n = (args.board_grid / args.unit_grid)**2
-    isExists = os.path.exists(args.outdir)
 
     if (args.board_grid % args.unit_grid != 0):
         sys.exit(1)
@@ -25,12 +24,11 @@ def main():
     if (len(args.positions) != args.unit_n):
         sys.exit(1)
 
-    if not isExists:
-        os.makedirs(args.outdir)
-        path = args.outdir + '/'
-        file = open(path + args.file_name + '.mat', 'w')
-        file = open(path + args.file_name + '.jpg', 'w')
-        file.close()
+    if not Path(args.outdir).exists():
+        Path(args.outdir).mkdir(parents=True, exist_ok=True)
+        path1 = args.outdir + '/' + 'example'
+        Path(path1 + '.mat').open('w')
+        Path(path1 + '.jpg').open('w')
 
 
 if __name__ == "__main__":
