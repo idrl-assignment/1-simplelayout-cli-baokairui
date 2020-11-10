@@ -24,11 +24,14 @@ def main():
     if (len(args.positions) != args.unit_n):
         sys.exit(1)
 
-    if not Path(args.outdir).exists():
+    if not Path(args.outdir).exists():  # 判断目录是否存在
         Path(args.outdir).mkdir(parents=True, exist_ok=True)
-        path1 = args.outdir + '/' + 'example'
-        Path(path1 + '.mat').open('w')
-        Path(path1 + '.jpg').open('w')
+
+    file_types = ['mat', 'jpg']
+    for file_type in file_types:  # 判断文件是否存在
+        file_path = '{}/{}.{}'.format(args.outdir, args.file_name, file_type)
+        if not Path(file_path).exists():
+            Path(file_path).open('w')
 
 
 if __name__ == "__main__":
